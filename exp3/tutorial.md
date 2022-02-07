@@ -248,7 +248,7 @@ int main() {
 
 ![](snaps/snap10.png)
 
-- To see the kernel message buffer. U will see `Hello world from my sys call` at the end
+- To see the kernel message buffer run `dmesg` in the terminal. U will see `Hello world from my sys call` at the end
 
 ```bash
 dmesg
