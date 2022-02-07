@@ -30,6 +30,8 @@ sudo apt-get install build-essential
 uname -r
 ```
 
+![](snaps/snap1.png)
+
 - so i downloaded kernel release of higher version `4.17.4` using this command. so that kernel will update automatically when we reboot.
 
 ```bash
@@ -73,6 +75,8 @@ asmlinkage long sys_hello(void) {
 }
 ```
 
+![](snaps/snap2.png)
+
 - create Makefile in the hello/ directory.
 
 ```bash
@@ -84,6 +88,8 @@ touch Makefile
 ```Makefile
 obj-y := hello.o
 ```
+
+![](snaps/snap3.png)
 
 - go back to kernels directory.
 
@@ -103,6 +109,8 @@ cd /usr/src/linux-4.17.4/
 - add `hello/` at the end of this line.
   `core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ hello/`
 
+![](snaps/snap4.png)
+
 ## Adding our system call to systemcall table.
 
 ```bash
@@ -121,6 +129,8 @@ gedit syscall_64.tbl
 ```
 548       64        hello          sys_hello
 ```
+
+![](snaps/snap5.png)
 
 - <b> NOTE :</b>
 - The last entry was 547 so I added the next number 548.
@@ -143,6 +153,8 @@ gedit syscalls.h
 ```
 asmlinkage long sys_hello(void);
 ```
+
+![](snaps/snap6.png)
 
 ## Before compiling the kernel. run the following commands.
 
@@ -172,6 +184,8 @@ sudo make menuconfig
 
 - <b>NOTE</b>:
 - Once the above command is used to configure the Linux kernel, you will get a pop up window with the list of menus and you can select the items for the new configuration. If your unfamiliar with the configuration just check for the file systems menu and check whether “ext4” is chosen or not, if not select it and save the configuration.
+
+![](snaps/snap7.png)
 
 ## compile the kernel using this command `sudo make -jn`
 
@@ -203,6 +217,8 @@ shutdown -r now
 uname -r
 ```
 
+![](snaps/snap8.png)
+
 ## Testing our system call.
 
 - create a .c file on your desktop.
@@ -226,10 +242,18 @@ int main() {
 }
 ```
 
+![](snaps/snap9.png)
+
+- Compile and run the code.
+
+![](snaps/snap10.png)
+
 - To see the kernel message buffer. U will see `Hello world from my sys call` at the end
 
 ```bash
 dmesg
 ```
+
+![](snaps/snap11.png)
 
 > Great Success!
