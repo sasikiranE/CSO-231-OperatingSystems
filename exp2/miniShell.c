@@ -26,7 +26,8 @@ void execute(char **argv) {
 		exit(1);
 	}
 	else if(pid == 0) {
-		// execute the command for child process.
+		// execute the command in child process.
+		printf("%s", *argv);
 		if (execvp(*argv, argv) < 0) {
 			printf("*** ERROR: exec failed\n");
 			exit(1);
@@ -42,14 +43,24 @@ void execute(char **argv) {
 void main(void) {
 	char line[1024];
 	char *argv[64];
+	char history[1024][1024];
+	int count = 0;
 
 	while (1) {
 		printf("Shell -> ");
 		fgets(line, sizeof(line), stdin);
 		// if the command is empty.
 		if (strcmp(line, "\n") == 0) continue;
+		// add the command to history.
+		strcpy(history[count++], line);
+		// parse the command.
 		parse(line, argv);
 		if (strcmp(argv[0], "exit") == 0) exit(0);
-		execute(argv);
+		if (strcmp(argv[0], "history") == 0) {
+			for (int i = 0; i < count; i++) {
+				printf("%d\t%s", i + 1, history[i]);
+			}
+		}
+		else execute(argv);
 	}
 }
