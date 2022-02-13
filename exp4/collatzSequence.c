@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -36,7 +37,8 @@ int main() {
 	}
 
 	else {
-		printf("Error occured!! Unable to create child process.\n");
+        fprintf(stderr, "Error occured! Unable to create child process.\n");
+        exit(1);
 	}
 	return 0;
 }
