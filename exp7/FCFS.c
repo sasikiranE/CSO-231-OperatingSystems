@@ -2,6 +2,10 @@
 
 // FIRST-COME FIRST-SERVED scheduling.
 
+int max(int a, int b) {
+    return (a >= b ? a : b);
+}
+
 int main() {
     int n;
     printf("How many processes : ");
@@ -12,24 +16,24 @@ int main() {
         processId[i] = i + 1;
     }
 
+    int arrivalTime[n];
+    printf("Enter their arrival times (ascending.) : ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arrivalTime[i]);
+    }
+
     int burstTime[n];
     printf("Enter their burst times : ");
     for (int i = 0; i < n; i++) {
         scanf("%d", &burstTime[i]);
     }
 
-    // assuming arrival time of all processes is 0.
-    int arrivalTime[n];
-    for (int i = 0; i < n; i++) {
-        arrivalTime[i] = 0;
-    }
-
     int startTime[n], endTime[n];
-    startTime[0] = 0;
+    startTime[0] = arrivalTime[0];
     endTime[0] = startTime[0] + burstTime[0];
     for (int i = 1; i < n; i++) {
-        startTime[i] = endTime[i - 1];
-        endTime[i] = endTime[i - 1] + burstTime[i];
+        startTime[i] = max(endTime[i - 1], arrivalTime[i]);
+        endTime[i] = startTime[i] + burstTime[i];
     }
 
     int turnAroundTime[n], waitingTime[n];
