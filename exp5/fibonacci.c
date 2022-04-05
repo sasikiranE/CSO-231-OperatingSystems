@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
 	pthread_t tid;
 	pthread_attr_t attr;
 
-	if (argc != 2 || atoi(argv[1]) <= 0) {
+	if (argc != 2 || atoi(argv[1]) <= 0 || atoi(argv[1]) > 90) {
 		fprintf(stderr, "Usage : ./a.out <Positive Integer Value <= 90>\n");
 		return -1;
 	}
